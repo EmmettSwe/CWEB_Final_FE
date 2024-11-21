@@ -1,13 +1,13 @@
-import "reflect-metadata"
-import { DataSource } from "typeorm"
-import { User } from "./entity/User"
+import { DataSource } from 'typeorm';
+import {Recipe} from "./entity/Recipe";
+import {User} from "./entity/User";
 
 export const AppDataSource = new DataSource({
-    type: 'sqlite', // prostgress, localdb, mysql, mariadb
-    database: './sqlite.db',
+    type: 'sqlite', // e.g., 'mysql', 'postgres', etc.
+    database: './database.sqlite',
     synchronize: true,
     logging: false,
-    entities: [User],
-    migrations: [],
-    subscribers: [],
-})
+    entities: [ Recipe, User],
+    migrations: [], // Add your migration files here
+    subscribers: [], // Add your subscriber files here
+});
