@@ -1,6 +1,7 @@
 import { RecipeController } from "./controller/RecipeController"
 import {UserController} from "./controller/UserController";
 import {AuthController} from "./controller/AuthController";
+import {CommentController} from "./controller/CommentController";
 
 /**
  * This is the routes file. It contains all of the routes for the application.
@@ -72,4 +73,28 @@ export const Routes = [{
     controller: AuthController,
     action: "login",
     needAuth: false
+},{
+    method: "get",
+    route: "/Comment/:id",
+    controller: CommentController,
+    action: "all",
+    needAuth: false
+},{
+    method: "post",
+    route: "/Comment",
+    controller: CommentController,
+    action: "create",
+    needAuth: true
+},{
+    method: "put",
+    route: "/Comment/:id",
+    controller: UserController,
+    action: "update",
+    needAuth: true
+},{
+    method: "delete",
+    route: "/Comment/:id",
+    controller: CommentController,
+    action: "delete",
+    needAuth: true
 }]
