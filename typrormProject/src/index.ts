@@ -10,11 +10,11 @@ import {authenticate} from "./middleware/authenticate";
 
 
 // cors options
-const corsOptions ={
-    origin: /localhost\:\d{4}$/i, // localhost any 4 digit port
-    credentials: true, // needed to set and return cookies
-    allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
-    methods: 'GET,PUT,POST,DELETE',
+const corsOptions = {
+    origin: 'http://localhost:5173', // Allow only requests from your frontend
+    credentials: true, // Allow cookies and credentials
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
     maxAge: 43200, // 12 hours
 };
 
@@ -22,14 +22,16 @@ AppDataSource.initialize().then(async () => {
 
     // create express app
     const app = express()
+    app.use(cors(corsOptions)); // enable CORS for all handlers
+    app.options('*', cors(corsOptions));
     app.use(bodyParser.json())
 
-    app.use(cors(corsOptions)); // enable CORS for all handlers
+
+
     app.use((req: express.Request, res: express.Response, next: express.NextFunction ) => {
         if (req.xhr && req.accepts('application/json')) next();
         else next(createError(406));
     });
-    app.options('*', cors(corsOptions));
 
     Routes.forEach(route => {
         // check if route needs authentication. If it does then add authenticate middleware
