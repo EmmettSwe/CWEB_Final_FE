@@ -10,5 +10,7 @@
 </template>
 
 <style scoped>
-
+footer {
+  border: #2c3e50 1px solid;
+}
 </style>

@@ -2,7 +2,7 @@
 
 import {ref} from "vue";
 
-const createUser = () => {
+const loginUser = () => {
   const myHeaders = new Headers();
   myHeaders.append("Accept", "");
   myHeaders.append("X-Requested-With", "XmlHttpRequest");
@@ -10,8 +10,6 @@ const createUser = () => {
   myHeaders.append("Content-Type", "application/json; charset=utf-8");
 
   const user = {
-    firstName: firstName.value,
-    lastName: lastName.value,
     username: username.value,
     password: password.value
   };
@@ -23,36 +21,24 @@ const createUser = () => {
     redirect: "follow"
   };
 
-  fetch("http://localhost:3000/user", requestOptions)
+  fetch("http://localhost:3000/login", requestOptions)
       .then((response) => response.text())
-      .then((result) => $route.push("/login"))
+      .then((result) => {
+        localStorage.setItem("token", result.token)
+
+      })
       .catch((error) => console.error(error));
 }
 
-let firstName = ref("")
-let lastName = ref("")
 let username = ref("")
 let password = ref("")
-let confirm = ref("")
-
-
-
 
 </script>
 
 <template>
   <div class="bg-gray-900 text-gray-100 p-5 rounded-2xl">
-    <h1 class="text-center title mb-2">Sign Up</h1>
-    <form class="flex flex-col" @submit.prevent="createUser">
-      <div class="m-5 flex justify-between">
-        <label class="w-32" for="firstName">First Name</label>
-        <input v-model="firstName" class="w-60 text-black" type="text" name="firstName" id="firstName">
-      </div>
-
-      <div class="m-5 flex justify-between">
-        <label class="w-32" for="lastName">Last Name</label>
-        <input v-model="lastName" class="w-60 text-black" type="text" name="lastName" id="lastName">
-      </div>
+    <h1 class="text-center title mb-2">Login</h1>
+    <form class="flex flex-col" @submit.prevent="loginUser">
 
       <div class="m-5 flex justify-between">
         <label class="w-32" for="username">Username</label>
@@ -65,23 +51,22 @@ let confirm = ref("")
       </div>
 
       <div class="m-5 flex justify-between">
-        <label class="w-32" for="confirm">Confirm Password</label>
-        <input v-model="confirm" class="w-60 text-black" type="password" name="confirm" id="confirm">
-      </div>
-
-      <div class="m-5 flex justify-between">
         <button class="bg-gray-400 hover:bg-gray-300 rounded" type="submit">Submit</button>
-        <button class="bg-red-500 hover:bg-red-400 rounded" type="reset">Reset Form</button>
       </div>
     </form>
   </div>
+  <p class="text-center mt-2 signup">Don't have an account? <RouterLink to="/signup">Sign Up</RouterLink></p>
 
 </template>
 
 <style scoped>
+.signup {
+  margin-bottom: 9rem;
+}
+
 .bg-gray-900 {
-  width: 50%;
-  margin: 5rem auto;
+  width: 40%;
+  margin: 9rem auto 0;
 }
 
 button {

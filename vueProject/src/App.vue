@@ -3,13 +3,17 @@
 import Navbar from "@/components/Navbar.vue";
 import Footer from "@/components/Footer.vue";
 import SignUp from "@/components/SignUp.vue";
+
+
 </script>
 
 <template>
   <div class="container bg-white">
     <Navbar />
+    <div class="content">
+      <RouterView />
+    </div>
 
-    <SignUp />
 
     <Footer />
   </div>
@@ -21,4 +25,5 @@ import SignUp from "@/components/SignUp.vue";
   height: 100vh;
   margin: 0 auto;
 }
+
 </style>

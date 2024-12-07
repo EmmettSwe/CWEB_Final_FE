@@ -88,7 +88,7 @@ export const Routes = [{
 },{
     method: "put",
     route: "/Comment/:id",
-    controller: UserController,
+    controller: CommentController,
     action: "update",
     needAuth: true
 },{
