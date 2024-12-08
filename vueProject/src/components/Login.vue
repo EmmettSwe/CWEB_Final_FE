@@ -1,6 +1,9 @@
 <script setup>
 
 import {ref} from "vue";
+import {useRouter} from "vue-router";
+
+const router = useRouter();
 
 const loginUser = () => {
   const myHeaders = new Headers();
@@ -22,10 +25,11 @@ const loginUser = () => {
   };
 
   fetch("http://localhost:3000/login", requestOptions)
-      .then((response) => response.text())
+      .then((response) => response.json())
       .then((result) => {
+        console.log(result.token);
         localStorage.setItem("token", result.token)
-
+        router.push("/");
       })
       .catch((error) => console.error(error));
 }

@@ -22,7 +22,7 @@ import SignUp from "@/components/SignUp.vue";
 <style scoped>
 .container {
   width: 80%;
-  height: 100vh;
+  min-height: 100vh;
   margin: 0 auto;
 }
 

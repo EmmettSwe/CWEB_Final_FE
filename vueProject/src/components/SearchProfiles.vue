@@ -1,9 +1,8 @@
 <script setup>
 
-import {onMounted, reactive, ref} from "vue";
-import Recipe from "@/components/Recipe.vue";
+import {onMounted, ref} from "vue";
 
-let recipes = ref([])
+const users = ref([])
 
 onMounted(() => {
   const myHeaders = new Headers();
@@ -18,24 +17,28 @@ onMounted(() => {
     redirect: "follow"
   };
 
-  fetch("http://localhost:3000/recipe", requestOptions)
+  fetch("http://localhost:3000/user", requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        recipes.value = result;
-        recipes.value = recipes.value.reverse();
+        users.value = result;
+        users.value = users.value.reverse();
       })
       .catch((error) => console.error(error));
 })
 
-
 </script>
 
 <template>
-  <h1 class="text-2xl font-bold m-2 mb-4">My Feed</h1>
-  <RouterLink class="btn m-2 bg-red-500 hover:bg-red-400 p-2 rounded text-white" to="#">Create Recipe</RouterLink>
-
-
-  <Recipe v-for="recipe in recipes" :key="recipe.recipeID" :recipe="recipe" />
+  <h1 class="text-2xl font-bold m-2">Search Profiles</h1>
+  <ul v-for="user in users">
+    <li>
+      <p class="text-lg m-2">
+        <RouterLink :to="`/profile/${user.userID}`">
+          {{user.firstName}} {{user.lastName}}
+        </RouterLink>
+      </p>
+    </li>
+  </ul>
 </template>
 
 <style scoped>

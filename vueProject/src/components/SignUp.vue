@@ -22,10 +22,10 @@ const createUser = () => {
     body: JSON.stringify(user),
     redirect: "follow"
   };
-
+  const router =
   fetch("http://localhost:3000/user", requestOptions)
       .then((response) => response.text())
-      .then((result) => $route.push("/login"))
+      .then((result) => route.push("/login"))
       .catch((error) => console.error(error));
 }
 
