@@ -14,6 +14,10 @@ onMounted(() => {
 })
 
 const createRecipe = () => {
+  if (!formValidation()){
+    console.log(errors)
+    return;
+  }
   const myHeaders = new Headers();
   myHeaders.append("Accept", "");
   myHeaders.append("X-Requested-With", "XmlHttpRequest");
@@ -48,15 +52,58 @@ let estimatedTime = ref("")
 let ingredients = ref("")
 let steps = ref("")
 
+let errors = ref({
+  title: "",
+  calories: "",
+  estimatedTime: "",
+  ingredients: "",
+  steps: ""
+})
+
+const formValidation = () => {
+  let valid = true
+  errors.value = {
+    calories: "",
+    estimatedTime: "",
+    ingredients: "",
+    steps: "",
+    title: ""
+  }
+
+  if ((title.value ===  "")) {
+    errors.title = "Please enter a title"
+    valid = false
+  }
+  if ((calories.value ===  "")) {
+    errors.calories = "Please enter a value for calories"
+    valid = false
+  }
+  if ((estimatedTime.value ===  "")) {
+    errors.estimatedTime = "Please enter a time estimate"
+    valid = false
+  }
+  if ((ingredients.value ===  "")) {
+    errors.ingredients = "Please enter ingredients"
+    valid = false
+  }
+  return valid;
+}
 </script>
 
 <template>
+  <p>
+    <b>Please correct the following error(s):</b>
+    <ul>
+      <li >{{errors.title}}</li>
+      <li v-for="error in errors">{{ error }}</li>
+    </ul>
+  </p>
   <div class="bg-gray-900 text-gray-100 p-5 rounded-2xl">
     <h1 class="text-center title mb-2">Create New Recipe</h1>
     <form class="flex flex-col" @submit.prevent="createRecipe">
       <div class="m-5 flex justify-between">
         <label class="w-32" for="title">Title</label>
-        <input v-model="title" class="w-60 text-black" type="text" name="title" id="title">
+        <input v-model="title" class="w-60 text-black" type="text" name="title" id="title"/>
       </div>
 
       <div class="m-5 flex justify-between">

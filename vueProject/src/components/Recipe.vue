@@ -5,6 +5,9 @@ import {onMounted, ref, watch} from "vue";
 const props = defineProps({
   recipe: {
     type: Object,
+  },
+  id:{
+    type: String,
   }
 })
 

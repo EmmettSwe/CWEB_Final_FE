@@ -9,6 +9,8 @@ import Feed from '@/components/Feed.vue';
 import RecipePage from '@/components/RecipePage.vue';
 import CreateRecipe from "@/components/CreateRecipe.vue";
 import SearchProfiles from "@/components/SearchProfiles.vue";
+import profile from "@/components/profile.vue";
+import editProfile from "@/components/editProfile.vue";
 
 const routes = [
     { path: '/signup', component: SignUp },
@@ -16,7 +18,9 @@ const routes = [
     { path: '/', component: Feed },
     { path: '/recipe/:id', component: RecipePage },
     { path: '/recipe/create', component: CreateRecipe },
-    { path: '/profile/search', component: SearchProfiles }
+    { path: '/profile/search', component: SearchProfiles },
+    { path: '/profile/:id' , component: profile, props: true },
+    { path: '/profile/edit/:id', component: editProfile, props: true },
 ]
 
 const router = createRouter({

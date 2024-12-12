@@ -10,7 +10,7 @@ onMounted(() => {
   token.value = localStorage.getItem("token")
   signedIn.value = !(token.value === undefined || token.value === null);
 })
-
+console.log("signed in value: " + token.value);
 const signOut = () => {
   localStorage.removeItem("token");
   router.push("/login");
@@ -26,7 +26,9 @@ const signOut = () => {
         <li class="p-2 hover:text-gray-400">
           <RouterLink to="/recipe/create">Create Recipe</RouterLink>
         </li>
-        <li class="p-2 hover:text-gray-400"><RouterLink to="#">My Profile</RouterLink></li>
+        <li class="p-2 hover:text-gray-400">
+          <RouterLink to='/profile/'>My Profile</RouterLink>
+        </li>
         <li class="p-2 hover:text-gray-400"><RouterLink to="/profile/search">Search Profiles</RouterLink></li>
       </ul>
     </div>
